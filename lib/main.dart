@@ -54,8 +54,41 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
+  int _currentIndex = 0;
+  final List<Widget> _screens = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _screens.addAll([
+      HomeScreen(onNavigateToTab: _onTabTapped),
+      BookAppointmentScreen(onAppointmentBooked: () => _onTabTapped(2),),
+      const AppointmentsScreen(),
+    ]);
+  }
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: IndexedStack(index: _currentIndex, children: _screens,),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _onTabTapped,
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Theme.of(context).primaryColor,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HOME'),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'BOOK'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'APPOINTMENTS')
+        ]
+      ),
+    );
   }
 }
