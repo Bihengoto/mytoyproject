@@ -49,6 +49,41 @@ class _HomeScreenState extends State<HomeScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("IT Support Hub"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: _loadDashboardData,
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
+
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+              onRefresh: _loadDashboardData,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildWelcomeSection(),
+                    const SizedBox(height: 24),
+                    _buildQuickActions(),
+                    const SizedBox(height: 24),
+                    _buildStatsCards(),
+                    const SizedBox(height: 24),
+                    _buildTodaysAppointments(),
+                    const SizedBox(height: 24),
+                    _buildUpcomingAppointments(),
+                  ],
+                ),
+              ),
+            ),
+    );
   }
 }
