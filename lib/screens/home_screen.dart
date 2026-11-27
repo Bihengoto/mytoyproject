@@ -86,4 +86,63 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
     );
   }
+
+  Widget _buildWelcomeSection() {
+    final now = DateTime.now();
+    final hour = now.hour;
+    String greeting;
+
+    if (hour < 12) {
+      greeting = 'Good Morning!';
+    } else if (hour < 17) {
+      greeting = 'Good Afternoon!';
+    } else {
+      greeting = 'Good Evening!';
+    }
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).primaryColor,
+            Theme.of(context).primaryColor.withOpacity(0.8),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            greeting,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "How can we help you with your IT needs today?",
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white.withOpacity(0.9),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            DateFormat('EEEE, MMMM dd, yyyy').format(now),
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white.withOpacity(0.8),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
