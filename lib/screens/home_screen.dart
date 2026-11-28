@@ -145,4 +145,46 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  Widget _buildQuickActions() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Quick Actions",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: _buildActionCard(
+                icon: Icons.calendar_today,
+                title: 'Book Appointment',
+                subtitle: 'Schedule IT Support',
+                color: Colors.blue,
+                onTap: () {
+                  widget.onNavigateToTab?.call(1);
+                },
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _buildActionCard(
+                icon: Icons.list_alt,
+                title: 'My Appointments',
+                subtitle: 'View & Manage',
+                color: Colors.green,
+                onTap: () {
+                  widget.onNavigateToTab?.call(2);
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  
 }
